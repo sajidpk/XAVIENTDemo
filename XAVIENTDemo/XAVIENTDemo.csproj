@@ -18,4 +18,10 @@
     <DotNetCliToolReference Include="Amazon.Lambda.Tools" Version="2.1.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Deploy.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,1 @@
+﻿dotnet lambda package-ci --Profile Prod   -sb  serverlessstore -ot serverless.json -cfg  aws-lambda-tools-defaults.json -pcfg True
