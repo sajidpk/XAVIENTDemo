@@ -25,7 +25,7 @@ namespace XAVIENTDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            //Test team city , 2 , test after webhook
+            //Test team city , 2 , test after webhook , still not working
             // Add S3 to the ASP.NET Core dependency injection framework.
             services.AddAWSService<Amazon.S3.IAmazonS3>();
         }
