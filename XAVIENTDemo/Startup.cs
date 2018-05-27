@@ -25,7 +25,7 @@ namespace XAVIENTDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            //FInaly it started working.. auto bulid
+            //FInaly it started working.. auto bulid, ok
             // Add S3 to the ASP.NET Core dependency injection framework. 
             services.AddAWSService<Amazon.S3.IAmazonS3>();
         }
