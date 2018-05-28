@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <None Update="Deploy.ps1">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
