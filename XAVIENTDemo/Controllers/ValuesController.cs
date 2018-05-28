@@ -20,7 +20,7 @@ namespace XAVIENTDemo.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return "value";
+            return System.Environment.GetEnvironmentVariable("AWS_S3_KEY");
         }
 
         // POST api/values
