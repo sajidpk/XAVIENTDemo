@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Amazon.DynamoDBv2;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -26,7 +28,11 @@ namespace XAVIENTDemo
         // This method gets called by the runtime. Use this method to add services to the container
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(x =>
+            {
+                x.ReturnHttpNotAcceptable = true;
+                x.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+            });
 
             // AWS Options
             var awsOptions = Configuration.GetAWSOptions();
@@ -38,13 +44,33 @@ namespace XAVIENTDemo
             // Add S3 to the ASP.NET Core dependency injection framework. 
             services.AddAWSService<Amazon.S3.IAmazonS3>();
 
-            services.AddSingleton<IBookRepository, BookRepository>();
+            services.AddSingleton<IPlayersRepository, PlayersRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env , IPlayersRepository playerRepository)
         {
+            if  (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler(appBulider =>
+                {
+                    appBulider.Run(async context =>
+                  {
+                      context.Response.StatusCode = 500;
+                      await context.Response.WriteAsync("Please try again");
+
+                  });
+
+                });
+            }
+
             app.UseMvc();
+
+            playerRepository.CreateTableAsync(false);
         }
     }
 }
