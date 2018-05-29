@@ -1,8 +1,6 @@
-# ASP.NET Core Web API Serverless Application
+# XAVIENTDemo Serverless 
 
 This project shows how to run an ASP.NET Core Web API project as an AWS Lambda exposed through Amazon API Gateway. The NuGet package [Amazon.Lambda.AspNetCoreServer](https://www.nuget.org/packages/Amazon.Lambda.AspNetCoreServer) contains a Lambda function that is used to translate requests from API Gateway into the ASP.NET Core framework and then the responses from ASP.NET Core back to API Gateway.
-
-The project starts with two Web API controllers. The first is the example ValuesController that is created by default for new ASP.NET Core Web API projects. The second is S3ProxyController which uses the AWS SDK for .NET to proxy requests for an Amazon S3 bucket.
 
 
 ### Configuring AWS SDK for .NET ###
@@ -32,30 +30,3 @@ public void ConfigureServices(IServiceCollection services)
 
 You may also have a test project depending on the options selected.
 
-## Here are some steps to follow from Visual Studio:
-
-To deploy your Serverless application, right click the project in Solution Explorer and select *Publish to AWS Lambda*.
-
-To view your deployed application open the Stack View window by double-clicking the stack name shown beneath the AWS CloudFormation node in the AWS Explorer tree. The Stack View also displays the root URL to your published application.
-
-## Here are some steps to follow to get started from the command line:
-
-Once you have edited your template and code you can use the following command lines to deploy your application from the command line (these examples assume the project name is *XAVIENTDemo*):
-
-Restore dependencies
-```
-    cd "XAVIENTDemo"
-    dotnet restore
-```
-
-Execute unit tests
-```
-    cd "XAVIENTDemo/test/XAVIENTDemo.Tests"
-    dotnet test
-```
-
-Deploy application
-```
-    cd "XAVIENTDemo/src/XAVIENTDemo"
-    dotnet lambda deploy-serverless
-```
