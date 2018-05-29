@@ -1,32 +1,7 @@
 # XAVIENTDemo Serverless 
 
-This project shows how to run an ASP.NET Core Web API project as an AWS Lambda exposed through Amazon API Gateway. The NuGet package [Amazon.Lambda.AspNetCoreServer](https://www.nuget.org/packages/Amazon.Lambda.AspNetCoreServer) contains a Lambda function that is used to translate requests from API Gateway into the ASP.NET Core framework and then the responses from ASP.NET Core back to API Gateway.
+This project shows a small ASP.NET Core Web API project as an AWS Lambda exposed through Amazon API Gateway, and data will be persisted in Dynamo DB. 
 
 
-### Configuring AWS SDK for .NET ###
 
-To integrate the AWS SDK for .NET with the dependency injection system built into ASP.NET Core the NuGet package [AWSSDK.Extensions.NETCore.Setup](https://www.nuget.org/packages/AWSSDK.Extensions.NETCore.Setup/) is referenced. In the Startup.cs file the Amazon S3 client is added to the dependency injection framework. The S3ProxyController will get its S3 service client from there.
-
-```csharp
-public void ConfigureServices(IServiceCollection services)
-{
-    services.AddMvc();
-
-    // Add S3 to the ASP.NET Core dependency injection framework.
-    services.AddAWSService<Amazon.S3.IAmazonS3>();
-}
-```
-
-### Project Files ###
-
-* serverless.ftemplate - an AWS CloudFormation Serverless Application Model template file for declaring your Serverless functions and other AWS resources
-* aws-lambda-tools-defaults.json - default argument settings for use with Visual Studio and command line deployment tools for AWS
-* LambdaEntryPoint.cs - class that derives from **Amazon.Lambda.AspNetCoreServer.APIGatewayProxyFunction**. The code in this file bootstraps the ASP.NET Core hosting framework. The Lambda function is defined in the base class.
-* LocalEntryPoint.cs - for local development this contains the executable Main function which bootstraps the ASP.NET Core hosting framework with Kestrel, as for typical ASP.NET Core applications.
-* Startup.cs - usual ASP.NET Core Startup class used to configure the services ASP.NET Core will use.
-* web.config - used for local development.
-* Controllers\S3ProxyController - Web API controller for proxying an S3 bucket
-* Controllers\ValuesController - example Web API controller
-
-You may also have a test project depending on the options selected.
 
